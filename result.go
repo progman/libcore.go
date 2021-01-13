@@ -20,7 +20,7 @@ type Result struct {
 }
 
 
-func (p *Result) getPlace(stackPosition int) (functionName string, fileName string, line int) {
+func (p *Result) GetPlace(stackPosition int) (functionName string, fileName string, line int) {
 	functionName = "unknown"
 	fileName     = "unknown"
 	line         = -1
@@ -47,70 +47,70 @@ func (p *Result) getPlace(stackPosition int) (functionName string, fileName stri
 }
 
 
-func (p *Result) init() {
+func (p *Result) Init() {
 	p.flagErr = true
 	p.errNum  = 1
 	p.errMsg  = "unknown"
 
-	p.parentFunctionName, p.parentFileName, p.parentLine = p.getPlace(3)
-	p.curentFunctionName, p.curentFileName, p.curentLine = p.getPlace(2)
+	p.parentFunctionName, p.parentFileName, p.parentLine = p.GetPlace(3)
+	p.curentFunctionName, p.curentFileName, p.curentLine = p.GetPlace(2)
 }
 
 
-func (p *Result) getCurentFunctionName() string {
+func (p *Result) GetCurentFunctionName() string {
 	return p.curentFunctionName
 }
 
 
-func (p *Result) getCurentFileName() string {
+func (p *Result) GetCurentFileName() string {
 	return p.curentFileName
 }
 
 
-func (p *Result) getCurentLine() int {
+func (p *Result) GetCurentLine() int {
 	return p.curentLine
 }
 
 
-func (p *Result) getParentFunctionName() string {
+func (p *Result) GetParentFunctionName() string {
 	return p.parentFunctionName
 }
 
 
-func (p *Result) getParentFileName() string {
+func (p *Result) GetParentFileName() string {
 	return p.parentFileName
 }
 
 
-func (p *Result) getParentLine() int {
+func (p *Result) GetParentLine() int {
 	return p.parentLine
 }
 
 
-func (p *Result) setOk() {
+func (p *Result) SetOk() {
 	p.flagErr = false
 	p.errNum  = 0
 	p.errMsg  = "ok"
 
-	p.curentFunctionName, p.curentFileName, p.curentLine = p.getPlace(2)
+	p.curentFunctionName, p.curentFileName, p.curentLine = p.GetPlace(2)
 }
 
 
-func (p *Result) setErrMsg(errNum int, errMsg string) {
+func (p *Result) SetErrMsg(errNum int, errMsg string) {
 	p.flagErr = true
 	p.errNum  = errNum
 	p.errMsg  = errMsg
 
-	p.curentFunctionName, p.curentFileName, p.curentLine = p.getPlace(2)
+	p.curentFunctionName, p.curentFileName, p.curentLine = p.GetPlace(2)
 }
 
 
-func (p *Result) setErr(err error) {
-	p.setErrMsg(1, fmt.Sprintf("%v", err))
+func (p *Result) SetErr(err error) {
+	p.SetErrMsg(1, fmt.Sprintf("%v", err))
 }
 
 
-func (p *Result) isOk() bool {
+func (p *Result) IsOk() bool {
 	if p.flagErr == false {
 		return true
 	}
@@ -118,41 +118,41 @@ func (p *Result) isOk() bool {
 }
 
 
-func (p *Result) getErrNum() int {
+func (p *Result) GetErrNum() int {
 	return p.errNum
 }
 
 
-func (p *Result) getErrMsg() string {
+func (p *Result) GetErrMsg() string {
 	return p.errMsg
 }
 
 
-func (p *Result) draw1() string {
-	return fmt.Sprintf("ERROR[%s()]: %s", p.getCurentFunctionName(), p.getErrMsg())
+func (p *Result) Draw1() string {
+	return fmt.Sprintf("ERROR[%s()]: %s", p.GetCurentFunctionName(), p.GetErrMsg())
 }
 
 
-func (p *Result) draw2() string {
-	return fmt.Sprintf("ERROR[%s(%s#%d)]: %s", p.getCurentFunctionName(), p.getCurentFileName(), p.getCurentLine(), p.getErrMsg())
+func (p *Result) Draw2() string {
+	return fmt.Sprintf("ERROR[%s(%s#%d)]: %s", p.GetCurentFunctionName(), p.GetCurentFileName(), p.GetCurentLine(), p.GetErrMsg())
 }
 
 
-func (p *Result) draw3() string {
-	return fmt.Sprintf("ERROR[%s(%s#%d) >> %s(%s#%d)]: %s", p.getParentFunctionName(), p.getParentFileName(), p.getParentLine(), p.getCurentFunctionName(), p.getCurentFileName(), p.getCurentLine(), p.getErrMsg())
+func (p *Result) Draw3() string {
+	return fmt.Sprintf("ERROR[%s(%s#%d) >> %s(%s#%d)]: %s", p.GetParentFunctionName(), p.GetParentFileName(), p.GetParentLine(), p.GetCurentFunctionName(), p.GetCurentFileName(), p.GetCurentLine(), p.GetErrMsg())
 }
 
 /*
 func zzz(val int) Result {
 	var result Result
-	result.init()
+	result.Init()
 
 	if val == 1 {
-		result.setErrMsg(1, "fucked up situation")
+		result.SetErrMsg(1, "fucked up situation")
 	}
 
 	if val == 2 {
-		result.setOk()
+		result.SetOk()
 	}
 
 	return result
@@ -163,21 +163,21 @@ func main() {
 	var rc Result
 
 	rc = zzz(0)
-	if rc.isOk() == false {
-		fmt.Printf("%s\n", rc.draw1())
+	if rc.IsOk() == false {
+		fmt.Printf("%s\n", rc.Draw1())
 	}
 
 	rc = zzz(1)
-	if rc.isOk() == false {
-		fmt.Printf("%s\n", rc.draw2())
+	if rc.IsOk() == false {
+		fmt.Printf("%s\n", rc.Draw2())
 	}
 
 	rc = zzz(1)
-	if rc.isOk() == false {
-		fmt.Printf("%s\n", rc.draw3())
+	if rc.IsOk() == false {
+		fmt.Printf("%s\n", rc.Draw3())
 	}
 
 	rc = zzz(2)
-	fmt.Printf("%s\n", rc.draw3())
+	fmt.Printf("%s\n", rc.Draw3())
 }
 */
