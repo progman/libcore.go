@@ -1,6 +1,7 @@
+package libcore
+
 /*
 package main
-
 import "github.com/progman/libcore.go"
 import "fmt"
 
