@@ -118,6 +118,11 @@ func (p *Result) IsOk() bool {
 }
 
 
+func (p *Result) IsErr() bool {
+	return (p.IsOk() == false)
+}
+
+
 func (p *Result) GetErrNum() int {
 	return p.errNum
 }
