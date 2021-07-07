@@ -2,12 +2,11 @@ package libcore
 
 import "fmt"
 import "errors"
-import "libcore"
 
 func LuhnMake(str string) (a string, flagOk bool) {
 	val := str + "0"
 	val_size := len(val)
-	flag_parity_str := libcore.IsParity(uint64(val_size))
+	flag_parity_str := IsParity(uint64(val_size))
 
 
 	sum := 0
@@ -18,7 +17,7 @@ func LuhnMake(str string) (a string, flagOk bool) {
 		ch := val[i] - byte('0')
 
 
-		flag_parity_idx := libcore.IsParity(uint64(i))
+		flag_parity_idx := IsParity(uint64(i))
 		if flag_parity_str == flag_parity_idx {
 			tmp := int(ch * 2)
 			if (tmp > 9) {
@@ -48,7 +47,7 @@ func LuhnMake(str string) (a string, flagOk bool) {
 
 func LuhnCheck(val string) (flagOk bool) {
 	val_size := len(val)
-	flag_parity_str := libcore.IsParity(uint64(val_size))
+	flag_parity_str := IsParity(uint64(val_size))
 
 
 	sum := 0
@@ -59,7 +58,7 @@ func LuhnCheck(val string) (flagOk bool) {
 		ch := val[i] - byte('0')
 
 
-		flag_parity_idx := libcore.IsParity(uint64(i))
+		flag_parity_idx := IsParity(uint64(i))
 		if flag_parity_str == flag_parity_idx {
 			tmp := int(ch * 2)
 			if (tmp > 9) {
