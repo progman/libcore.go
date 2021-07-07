@@ -1,6 +1,8 @@
 package libcore
 
+import "fmt"
 import "errors"
+import "libcore"
 
 func LuhnMake(str string) (a string, flagOk bool) {
 	val := str + "0"
