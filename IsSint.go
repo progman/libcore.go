@@ -4,6 +4,10 @@ package libcore
 func IsSint(str string) (flagOk bool) {
 	str_size := len(str)
 
+	if str_size == 0 {
+		return
+	}
+
 	for i := 0; i < str_size; i++ {
 		if (str[i] < byte('0')) || (str[i] > byte('9')) {
 			if i == 0 {
