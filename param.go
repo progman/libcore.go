@@ -42,7 +42,7 @@ func GetValueStr(r *http.Request, key string, defaultValue string) (value string
 func GetValueUint(r *http.Request, key string, defaultValue int) (value int) {
 	var err error
 
-	valueStr := getValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+	valueStr := GetValueStr(r, key, fmt.Sprintf("%d", defaultValue))
 //	tmp := r.URL.Query()[key]
 //	if (len(tmp) == 0) {
 //		value = defaultValue
@@ -68,7 +68,7 @@ func GetValueUint(r *http.Request, key string, defaultValue int) (value int) {
 func GetValueSint(r *http.Request, key string, defaultValue int) (value int) {
 	var err error
 
-	valueStr := getValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+	valueStr := GetValueStr(r, key, fmt.Sprintf("%d", defaultValue))
 //	tmp := r.URL.Query()[key]
 //	if (len(tmp) == 0) {
 //		value = defaultValue
@@ -117,7 +117,7 @@ func PostValueStr(r *http.Request, key string, defaultValue string) (value strin
 func PostValueUint(r *http.Request, key string, defaultValue int) (value int) {
 	var err error
 
-	valueStr := postValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+	valueStr := PostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
 //	tmp := r.URL.Query()[key]
 //	if (len(tmp) == 0) {
 //		value = defaultValue
@@ -143,7 +143,7 @@ func PostValueUint(r *http.Request, key string, defaultValue int) (value int) {
 func PostValueSint(r *http.Request, key string, defaultValue int) (value int) {
 	var err error
 
-	valueStr := postValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+	valueStr := PostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
 //	tmp := r.URL.Query()[key]
 //	if (len(tmp) == 0) {
 //		value = defaultValue
