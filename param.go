@@ -166,3 +166,96 @@ func PostValueSint(r *http.Request, key string, defaultValue int) (value int) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+// r.URL.Query().Get("param1")
+func MPostValueStr(r *http.Request, key string, defaultValue string) (value string) {
+	var err error
+
+//	err = r.ParseForm()
+	err = r.ParseMultipartForm(1024 * 1024)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+
+//	value = r.PostForm.Get(key)
+	value = r.Form.Get(key)
+
+
+//	tmp := r.URL.Query()[key]
+//	if (len(tmp) == 0) {
+//		value = defaultValue
+//		return
+//	}
+//	value = tmp[0]
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func MPostValueUint(r *http.Request, key string, defaultValue int) (value int) {
+	var err error
+
+	valueStr := MPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+//	tmp := r.URL.Query()[key]
+//	if (len(tmp) == 0) {
+//		value = defaultValue
+//		return
+//	}
+//	valueStr := tmp[0]
+
+	if IsUint(valueStr) == false {
+		value = defaultValue
+		return
+	}
+
+	valueTmp, err := strconv.ParseUint(valueStr, 10, 64)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+	value = int(valueTmp)
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func MPostValueSint(r *http.Request, key string, defaultValue int) (value int) {
+	var err error
+
+	valueStr := MPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+//	tmp := r.URL.Query()[key]
+//	if (len(tmp) == 0) {
+//		value = defaultValue
+//		return
+//	}
+//	valueStr := tmp[0]
+
+	if IsSint(valueStr) == false {
+		value = defaultValue
+		return
+	}
+
+	valueTmp, err := strconv.ParseInt(valueStr, 10, 64)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+	value = int(valueTmp)
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func PostBodyStr(r *http.Request, defaultValue string) (value string) {
+	var err error
+	var body []byte
+
+
+	body, err = ioutil.ReadAll(r.Body)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+
+
+	value = string(body)
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
