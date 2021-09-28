@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-package main
+package libcore
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 import (
 //	"database/sql"
@@ -24,7 +24,7 @@ import (
 //	"github.com/gorilla/websocket"
 //	"github.com/gorilla/mux"
 //	"html"
-	"github.com/progman/libcore.go"
+//	"github.com/progman/libcore.go"
 )
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // r.URL.Query().Get("param1")
@@ -50,7 +50,7 @@ func GetValueUint(r *http.Request, key string, defaultValue int) (value int) {
 //	}
 //	valueStr := tmp[0]
 
-	if libcore.IsUint(valueStr) == false {
+	if IsUint(valueStr) == false {
 		value = defaultValue
 		return
 	}
@@ -76,7 +76,7 @@ func GetValueSint(r *http.Request, key string, defaultValue int) (value int) {
 //	}
 //	valueStr := tmp[0]
 
-	if libcore.IsSint(valueStr) == false {
+	if IsSint(valueStr) == false {
 		value = defaultValue
 		return
 	}
@@ -125,7 +125,7 @@ func PostValueUint(r *http.Request, key string, defaultValue int) (value int) {
 //	}
 //	valueStr := tmp[0]
 
-	if libcore.IsUint(valueStr) == false {
+	if IsUint(valueStr) == false {
 		value = defaultValue
 		return
 	}
@@ -151,7 +151,7 @@ func PostValueSint(r *http.Request, key string, defaultValue int) (value int) {
 //	}
 //	valueStr := tmp[0]
 
-	if libcore.IsSint(valueStr) == false {
+	if IsSint(valueStr) == false {
 		value = defaultValue
 		return
 	}
