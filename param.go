@@ -7,7 +7,7 @@ import (
 //	"bytes"
 //	"mime/multipart"
 //	"strings"
-//	"encoding/json"
+	"encoding/json"
 	"strconv"
 	"fmt"
 //	"log"
@@ -259,4 +259,84 @@ func PostBodyStr(r *http.Request, defaultValue string) (value string) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// login := r.FormValue("login")
+func JPostValueStr(r *http.Request, key string, defaultValue string) (value string) {
+	var err error
+	var body
+	var result map[string]interface{}
+
+
+	body = PostBodyStr(r, "")
+	if body == "" {
+		value = defaultValue
+		return
+	}
+
+
+	err = json.Unmarshal([]byte(body), &result)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+
+
+	i, ok := result[key]
+	if ok == false {
+		value = defaultValue
+		return
+	}
+
+
+	value = i.(string)
+
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func JPostValueUint(r *http.Request, key string, defaultValue int) (value int) {
+	var err error
+
+
+	valueStr := JPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+
+
+	if IsUint(valueStr) == false {
+		value = defaultValue
+		return
+	}
+
+
+	valueTmp, err := strconv.ParseUint(valueStr, 10, 64)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+	value = int(valueTmp)
+
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func JPostValueSint(r *http.Request, key string, defaultValue int) (value int) {
+	var err error
+
+
+	valueStr := JPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+
+
+	if IsSint(valueStr) == false {
+		value = defaultValue
+		return
+	}
+
+
+	valueTmp, err := strconv.ParseInt(valueStr, 10, 64)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+	value = int(valueTmp)
+
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
