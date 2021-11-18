@@ -260,7 +260,7 @@ func PostBodyStr(r *http.Request, defaultValue string) (value string) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func JPostValueStr(body string, key string, defaultValue string, flagErr bool) (value string) {
+func JPostValueStr(body string, key string, defaultValue string) (value string) {
 	var err error
 	var result map[string]interface{}
 
