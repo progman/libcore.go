@@ -284,6 +284,10 @@ func JPostValueStr(body string, key string, defaultValue string) (value string) 
 	}
 
 
+	if reflect.TypeOf(result).String() != "string" {
+		value = defaultValue
+		return
+	}
 	value = i.(string)
 
 
@@ -291,6 +295,7 @@ func JPostValueStr(body string, key string, defaultValue string) (value string) 
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func JPostValueUint(body string, key string, defaultValue int) (value int) {
+/*
 	var err error
 
 
@@ -312,9 +317,51 @@ func JPostValueUint(body string, key string, defaultValue int) (value int) {
 
 
 	return
+*/
+
+
+	var err error
+	var result map[string]interface{}
+
+
+	if body == "" {
+		value = defaultValue
+		return
+	}
+
+
+	err = json.Unmarshal([]byte(body), &result)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+
+
+	i, ok := result[key]
+	if ok == false {
+		value = defaultValue
+		return
+	}
+
+
+	if reflect.TypeOf(result).String() != "int" {
+		value = defaultValue
+		return
+	}
+	value = i.(int)
+
+
+	if value < 0 {
+		value = defaultValue
+		return
+	}
+
+
+	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func JPostValueSint(body string, key string, defaultValue int) (value int) {
+/*
 	var err error
 
 
@@ -333,6 +380,41 @@ func JPostValueSint(body string, key string, defaultValue int) (value int) {
 		return
 	}
 	value = int(valueTmp)
+
+
+	return
+*/
+
+
+	var err error
+	var result map[string]interface{}
+
+
+	if body == "" {
+		value = defaultValue
+		return
+	}
+
+
+	err = json.Unmarshal([]byte(body), &result)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+
+
+	i, ok := result[key]
+	if ok == false {
+		value = defaultValue
+		return
+	}
+
+
+	if reflect.TypeOf(result).String() != "int" {
+		value = defaultValue
+		return
+	}
+	value = i.(int)
 
 
 	return
