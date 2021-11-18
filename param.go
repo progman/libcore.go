@@ -260,7 +260,7 @@ func PostBodyStr(r *http.Request, defaultValue string) (value string) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func JPostValueStr(body string, key string, defaultValue string) (value string) {
+func JPostValueStr(body string, key string, defaultValue string, flagErr bool) (value string) {
 	var err error
 	var result map[string]interface{}
 
@@ -285,7 +285,7 @@ func JPostValueStr(body string, key string, defaultValue string) (value string) 
 	}
 
 
-	if reflect.TypeOf(result).String() != "string" {
+	if reflect.TypeOf(i).String() != "string" {
 		value = defaultValue
 		return
 	}
@@ -295,30 +295,29 @@ func JPostValueStr(body string, key string, defaultValue string) (value string) 
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func JPostValueUint(body string, key string, defaultValue int) (value int) {
 /*
-	var err error
+func JPostValueUint(body string, key string, defaultValue int) (value int) {
+//	var err error
 
 
-	valueStr := JPostValueStr(body, key, fmt.Sprintf("%d", defaultValue))
+//	valueStr := JPostValueStr(body, key, fmt.Sprintf("%d", defaultValue))
 
 
-	if IsUint(valueStr) == false {
-		value = defaultValue
-		return
-	}
+//	if IsUint(valueStr) == false {
+//		value = defaultValue
+//		return
+//	}
 
 
-	valueTmp, err := strconv.ParseUint(valueStr, 10, 64)
-	if err != nil {
-		value = defaultValue
-		return
-	}
-	value = int(valueTmp)
+//	valueTmp, err := strconv.ParseUint(valueStr, 10, 64)
+//	if err != nil {
+//		value = defaultValue
+//		return
+//	}
+//	value = int(valueTmp)
 
 
-	return
-*/
+//	return
 
 
 	var err error
@@ -345,7 +344,7 @@ func JPostValueUint(body string, key string, defaultValue int) (value int) {
 	}
 
 
-	if reflect.TypeOf(result).String() != "int" {
+	if reflect.TypeOf(i).String() != "int" {
 		value = defaultValue
 		return
 	}
@@ -360,31 +359,31 @@ func JPostValueUint(body string, key string, defaultValue int) (value int) {
 
 	return
 }
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func JPostValueSint(body string, key string, defaultValue int) (value int) {
-/*
-	var err error
-
-
-	valueStr := JPostValueStr(body, key, fmt.Sprintf("%d", defaultValue))
-
-
-	if IsSint(valueStr) == false {
-		value = defaultValue
-		return
-	}
-
-
-	valueTmp, err := strconv.ParseInt(valueStr, 10, 64)
-	if err != nil {
-		value = defaultValue
-		return
-	}
-	value = int(valueTmp)
-
-
-	return
 */
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+/*
+func JPostValueSint(body string, key string, defaultValue int) (value int) {
+//	var err error
+
+
+//	valueStr := JPostValueStr(body, key, fmt.Sprintf("%d", defaultValue))
+
+
+//	if IsSint(valueStr) == false {
+//		value = defaultValue
+//		return
+//	}
+
+
+//	valueTmp, err := strconv.ParseInt(valueStr, 10, 64)
+//	if err != nil {
+//		value = defaultValue
+//		return
+//	}
+//	value = int(valueTmp)
+
+
+//	return
 
 
 	var err error
@@ -420,4 +419,5 @@ func JPostValueSint(body string, key string, defaultValue int) (value int) {
 
 	return
 }
+*/
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
