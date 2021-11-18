@@ -259,17 +259,10 @@ func PostBodyStr(r *http.Request, defaultValue string) (value string) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func JPostValueStr(r *http.Request, key string, defaultValue string) (value string) {
+func JPostValueStr(body string, key string, defaultValue string) (value string) {
 	var err error
 	var body string
 	var result map[string]interface{}
-
-
-	body = PostBodyStr(r, "")
-	if body == "" {
-		value = defaultValue
-		return
-	}
 
 
 	err = json.Unmarshal([]byte(body), &result)
@@ -292,11 +285,11 @@ func JPostValueStr(r *http.Request, key string, defaultValue string) (value stri
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func JPostValueUint(r *http.Request, key string, defaultValue int) (value int) {
+func JPostValueUint(body string, key string, defaultValue int) (value int) {
 	var err error
 
 
-	valueStr := JPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+	valueStr := JPostValueStr(body, key, fmt.Sprintf("%d", defaultValue))
 
 
 	if IsUint(valueStr) == false {
@@ -316,11 +309,11 @@ func JPostValueUint(r *http.Request, key string, defaultValue int) (value int) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func JPostValueSint(r *http.Request, key string, defaultValue int) (value int) {
+func JPostValueSint(body string, key string, defaultValue int) (value int) {
 	var err error
 
 
-	valueStr := JPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
+	valueStr := JPostValueStr(body, key, fmt.Sprintf("%d", defaultValue))
 
 
 	if IsSint(valueStr) == false {
