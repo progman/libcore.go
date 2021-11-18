@@ -264,6 +264,12 @@ func JPostValueStr(body string, key string, defaultValue string) (value string) 
 	var result map[string]interface{}
 
 
+	if body == "" {
+		value = defaultValue
+		return
+	}
+
+
 	err = json.Unmarshal([]byte(body), &result)
 	if err != nil {
 		value = defaultValue
