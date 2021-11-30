@@ -19,7 +19,7 @@ import (
  * @return dataOut received data
  * @return err error
  */
-func httpGet(accessToken string, url string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
+func HttpGet(accessToken string, url string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
 //	log.Printf("GET URL: %s\n", url)
 
 
@@ -60,5 +60,3 @@ func httpGet(accessToken string, url string, timeout time.Duration) (httpCode in
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-
