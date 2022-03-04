@@ -27,7 +27,7 @@ func HttpPut(accessToken string, url string, dataIn []byte, contentType string, 
 
 
 	r := bytes.NewReader(dataIn)
-	req, err := http.NewRequest(http.MethodPost, url, r)
+	req, err := http.NewRequest(http.MethodPut, url, r)
 	if err != nil {
 		return
 	}
