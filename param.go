@@ -40,15 +40,17 @@ func GetValueStr(r *http.Request, key string, defaultValue string) (value string
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func GetValueStrList(r *http.Request, key string, defaultValue string) (value []string) {
+func GetValueStrList(r *http.Request, key string, defaultValue []string) (value []string) {
 	tmp := r.URL.Query()[key]
 	if (len(tmp) == 0) {
-		value = append(value, defaultValue)
+		value = defaultValue
 		return
 	}
 
 	for i := 0; i < len(tmp); i++ {
-		value = append(value, tmp[i])
+		if tmp[i] != "" {
+			value = append(value, tmp[i])
+		}
 	}
 
 	return
