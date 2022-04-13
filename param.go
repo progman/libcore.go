@@ -299,6 +299,10 @@ func JPostValueStr(body string, key string, defaultValue string) (value string) 
 		value = defaultValue
 		return
 	}
+	if i == nil {
+		value = defaultValue
+		return
+	}
 
 
 	if reflect.TypeOf(i).String() != "string" {
