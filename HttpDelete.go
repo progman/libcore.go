@@ -11,23 +11,20 @@ import (
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 /**
  * @author Alexey Potehin <gnuplanet@gmail.com>, http://www.gnuplanet.online/doc/cv
- * @brief  send PUT request to url
+ * @brief  send DELETE request to url
  * @param  accessToken access token OR empty string
  * @param  url URL
- * @param  dataIn data for send
- * @param  contentType content type OR empty string
  * @param  timeout timeout like 30 * time.Second
  * @return httpCode http status code
  * @return dataOut received data
  * @return err error
  */
-func HttpPut(accessToken string, url string, dataIn []byte, contentType string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
-//	log.Printf("PUT URL: %s\n", url)
-//	log.Printf("PUT BODY: %s\n", string(dataIn))
+func HttpDelete(accessToken string, url string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
+//	log.Printf("DELETE URL: %s\n", url)
 
 
-	r := bytes.NewReader(dataIn)
-	req, err := http.NewRequest(http.MethodPut, url, r)
+	r := bytes.NewReader([]byte{})
+	req, err := http.NewRequest(http.MethodDelete, url, r)
 	if err != nil {
 		return
 	}
@@ -39,9 +36,7 @@ func HttpPut(accessToken string, url string, dataIn []byte, contentType string, 
 
 
 //log.Printf("contentType: \"%s\"\n", contentType)
-	if contentType != "" {
-		req.Header.Add("Content-Type", contentType)
-	}
+//	req.Header.Add("Content-Type", contentType)
 	req.Header.Add("Accept", "*/*")
 
 
