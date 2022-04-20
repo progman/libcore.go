@@ -4,15 +4,16 @@ package libcore
 import (
 //	"database/sql"
 //	_ "github.com/lib/pq"
-//	"bytes"
-//	"mime/multipart"
-//	"strings"
+	"bytes"
+	"mime/multipart"
+	"strings"
 	"encoding/json"
 	"strconv"
 	"fmt"
 //	"log"
 //	"time"
 //	"os"
+	"io"
 //	"flag"
 	"net/http"
 	"io/ioutil"
@@ -28,8 +29,8 @@ import (
 //	"github.com/progman/libcore.go"
 )
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// r.URL.Query().Get("param1")
 func GetValueStr(r *http.Request, key string, defaultValue string) (value string) {
+//	tmp := r.URL.Query().Get(key)
 	tmp := r.URL.Query()[key]
 	if (len(tmp) == 0) {
 		value = defaultValue
@@ -56,16 +57,10 @@ func GetValueStrList(r *http.Request, key string, defaultValue []string) (value 
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func GetValueUint(r *http.Request, key string, defaultValue int) (value int) {
+func GetValueUint(r *http.Request, key string, defaultValue uint64) (value uint64) {
 	var err error
 
 	valueStr := GetValueStr(r, key, fmt.Sprintf("%d", defaultValue))
-//	tmp := r.URL.Query()[key]
-//	if (len(tmp) == 0) {
-//		value = defaultValue
-//		return
-//	}
-//	valueStr := tmp[0]
 
 	if IsUint(valueStr) == false {
 		value = defaultValue
@@ -77,21 +72,15 @@ func GetValueUint(r *http.Request, key string, defaultValue int) (value int) {
 		value = defaultValue
 		return
 	}
-	value = int(valueTmp)
+	value = uint64(valueTmp)
 
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func GetValueSint(r *http.Request, key string, defaultValue int) (value int) {
+func GetValueSint(r *http.Request, key string, defaultValue int64) (value int64) {
 	var err error
 
 	valueStr := GetValueStr(r, key, fmt.Sprintf("%d", defaultValue))
-//	tmp := r.URL.Query()[key]
-//	if (len(tmp) == 0) {
-//		value = defaultValue
-//		return
-//	}
-//	valueStr := tmp[0]
 
 	if IsSint(valueStr) == false {
 		value = defaultValue
@@ -103,44 +92,61 @@ func GetValueSint(r *http.Request, key string, defaultValue int) (value int) {
 		value = defaultValue
 		return
 	}
-	value = int(valueTmp)
+	value = int64(valueTmp)
 
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// r.URL.Query().Get("param1")
+func PostParseMultipart(r *http.Request, maxMemory int64) (err error) {
+
+	if len(r.Form) == 0 {
+		err = r.ParseMultipartForm(maxMemory)
+		if err != nil {
+			return
+		}
+	}
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func PostParse(r *http.Request) (err error) {
+
+	if len(r.Form) != 0 {
+		return
+	}
+
+	if strings.Index(strings.ToLower(r.Header.Get("Content-Type")), "multipart") == -1 {
+		err = r.ParseForm()
+		if err != nil {
+			return
+		}
+	} else {
+		err = PostParseMultipart(r, 1014 * 1024 * 100)
+		if err != nil {
+			return
+		}
+	}
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func PostValueStr(r *http.Request, key string, defaultValue string) (value string) {
 	var err error
 
-	err = r.ParseForm()
+	err = PostParse(r)
 	if err != nil {
 		value = defaultValue
 		return
 	}
-
 	value = r.PostForm.Get(key)
-
-
-//	tmp := r.URL.Query()[key]
-//	if (len(tmp) == 0) {
-//		value = defaultValue
-//		return
-//	}
-//	value = tmp[0]
 
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func PostValueUint(r *http.Request, key string, defaultValue int) (value int) {
+func PostValueUint(r *http.Request, key string, defaultValue uint64) (value uint64) {
 	var err error
 
 	valueStr := PostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
-//	tmp := r.URL.Query()[key]
-//	if (len(tmp) == 0) {
-//		value = defaultValue
-//		return
-//	}
-//	valueStr := tmp[0]
 
 	if IsUint(valueStr) == false {
 		value = defaultValue
@@ -152,21 +158,15 @@ func PostValueUint(r *http.Request, key string, defaultValue int) (value int) {
 		value = defaultValue
 		return
 	}
-	value = int(valueTmp)
+	value = uint64(valueTmp)
 
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func PostValueSint(r *http.Request, key string, defaultValue int) (value int) {
+func PostValueSint(r *http.Request, key string, defaultValue int64) (value int64) {
 	var err error
 
 	valueStr := PostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
-//	tmp := r.URL.Query()[key]
-//	if (len(tmp) == 0) {
-//		value = defaultValue
-//		return
-//	}
-//	valueStr := tmp[0]
 
 	if IsSint(valueStr) == false {
 		value = defaultValue
@@ -178,26 +178,28 @@ func PostValueSint(r *http.Request, key string, defaultValue int) (value int) {
 		value = defaultValue
 		return
 	}
-	value = int(valueTmp)
+	value = int64(valueTmp)
 
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-// r.URL.Query().Get("param1")
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+/*
 func MPostValueStr(r *http.Request, key string, defaultValue string) (value string) {
 	var err error
 
-//	err = r.ParseForm()
-	err = r.ParseMultipartForm(1024 * 1024)
-	if err != nil {
-		value = defaultValue
-		return
+	if len(r.Form) == 0 {
+		err = r.ParseMultipartForm(1024 * 1024 * 10)
+		if err != nil {
+			value = defaultValue
+			return
+		}
 	}
 
 //	value = r.PostForm.Get(key)
 	value = r.Form.Get(key)
 
-
 //	tmp := r.URL.Query()[key]
 //	if (len(tmp) == 0) {
 //		value = defaultValue
@@ -207,17 +209,13 @@ func MPostValueStr(r *http.Request, key string, defaultValue string) (value stri
 
 	return
 }
+*/
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func MPostValueUint(r *http.Request, key string, defaultValue int) (value int) {
+/*
+func MPostValueUint(r *http.Request, key string, defaultValue uint64) (value uint64) {
 	var err error
 
 	valueStr := MPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
-//	tmp := r.URL.Query()[key]
-//	if (len(tmp) == 0) {
-//		value = defaultValue
-//		return
-//	}
-//	valueStr := tmp[0]
 
 	if IsUint(valueStr) == false {
 		value = defaultValue
@@ -229,21 +227,17 @@ func MPostValueUint(r *http.Request, key string, defaultValue int) (value int) {
 		value = defaultValue
 		return
 	}
-	value = int(valueTmp)
+	value = uint64(valueTmp)
 
 	return
 }
+*/
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func MPostValueSint(r *http.Request, key string, defaultValue int) (value int) {
+/*
+func MPostValueSint(r *http.Request, key string, defaultValue int64) (value int64) {
 	var err error
 
 	valueStr := MPostValueStr(r, key, fmt.Sprintf("%d", defaultValue))
-//	tmp := r.URL.Query()[key]
-//	if (len(tmp) == 0) {
-//		value = defaultValue
-//		return
-//	}
-//	valueStr := tmp[0]
 
 	if IsSint(valueStr) == false {
 		value = defaultValue
@@ -255,7 +249,40 @@ func MPostValueSint(r *http.Request, key string, defaultValue int) (value int) {
 		value = defaultValue
 		return
 	}
-	value = int(valueTmp)
+	value = int64(valueTmp)
+
+	return
+}
+*/
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func PostValueFile(r *http.Request, key string, defaultValue []byte) (filename string, value []byte) {
+	var err error
+
+	err = PostParse(r)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+
+
+	var f multipart.File
+	var fHeader *multipart.FileHeader
+	f, fHeader, err = r.FormFile(key)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+	defer f.Close()
+
+
+	filename = strings.TrimSpace(fHeader.Filename)
+
+
+//	value, _ = ioutil.ReadAll(f)
+	var buf bytes.Buffer
+	io.Copy(&buf, f)
+	value = buf.Bytes()
+
 
 	return
 }
