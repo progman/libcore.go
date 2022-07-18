@@ -7,6 +7,26 @@ import (
 	"time"
 )
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func GetUnixnanotimeUtcInt64() (unixnanotimeUtc int64) {
+	unixnanotimeUtc = time.Now().UTC().UnixNano()
+	return
+}
+
+func GetUnixnanotimeUtc() (unixnanotimeUtc string) {
+	unixnanotimeUtc = fmt.Sprintf("%d", GetUnixnanotimeUtcInt64())
+	return
+}
+
+func GetUnixmicrotimeUtcInt64() (unixmicrotimeUtc int64) {
+	unixmicrotimeUtc = time.Now().UTC().UnixNano() / int64(time.Microsecond)
+	return
+}
+
+func GetUnixmicrotimeUtc() (unixmicrotimeUtc string) {
+	unixmicrotimeUtc = fmt.Sprintf("%d", GetUnixmicrotimeUtcInt64())
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1624120658256315911 -> "2021-06-19 19:37:38.256315911"
 func Unixnanotime2iso(unixnanotime int64) (iso string) {
 	t := time.Unix(0, unixnanotime)
