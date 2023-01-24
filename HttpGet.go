@@ -4,7 +4,7 @@ package libcore
 import (
 	"io/ioutil"
 	"bytes"
-//	"fmt"
+	"fmt"
 	"net/http"
 	"time"
 )
@@ -14,12 +14,13 @@ import (
  * @brief  send GET request to url
  * @param  accessToken access token OR empty string
  * @param  url URL
+ * @param  pHeaderMap header map, map[string]string{"Content-Type": "application/json", "Authorization": "Bearer xxx"}
  * @param  timeout timeout like 30 * time.Second
  * @return httpCode http status code
  * @return dataOut received data
  * @return err error
  */
-func HttpGet(accessToken string, url string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
+func HttpGet(url string, pHeaderMap *map[string]string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
 //	log.Printf("GET URL: %s\n", url)
 
 
@@ -30,14 +31,9 @@ func HttpGet(accessToken string, url string, timeout time.Duration) (httpCode in
 	}
 
 
-	if accessToken != "" {
-		req.Header.Add("Authorization", "Bearer " + accessToken)
+	for headerKey, headerValue := range *pHeaderMap {
+		req.Header.Add(headerKey, headerValue)
 	}
-
-
-//log.Printf("contentType: \"%s\"\n", contentType)
-//	req.Header.Add("Content-Type", contentType)
-	req.Header.Add("Accept", "*/*")
 
 
 	client := &http.Client{

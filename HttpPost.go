@@ -4,7 +4,7 @@ package libcore
 import (
 	"io/ioutil"
 	"bytes"
-//	"fmt"
+	"fmt"
 	"net/http"
 	"time"
 )
@@ -14,14 +14,14 @@ import (
  * @brief  send POST request to url
  * @param  accessToken access token OR empty string
  * @param  url URL
- * @param  dataIn data for send
- * @param  contentType content type OR empty string
+ * @param  pHeaderMap header map, map[string]string{"Content-Type": "application/json", "Authorization": "Bearer xxx"}
  * @param  timeout timeout like 30 * time.Second
+ * @param  dataIn data for send
  * @return httpCode http status code
  * @return dataOut received data
  * @return err error
  */
-func HttpPost(accessToken string, url string, dataIn []byte, contentType string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
+func HttpPost(url string, pHeaderMap *map[string]string, timeout time.Duration, dataIn []byte) (httpCode int, dataOut []byte, err error) {
 //	log.Printf("POST URL: %s\n", url)
 //	log.Printf("POST BODY: %s\n", string(dataIn))
 
@@ -33,16 +33,9 @@ func HttpPost(accessToken string, url string, dataIn []byte, contentType string,
 	}
 
 
-	if accessToken != "" {
-		req.Header.Add("Authorization", "Bearer " + accessToken)
+	for headerKey, headerValue := range *pHeaderMap {
+		req.Header.Add(headerKey, headerValue)
 	}
-
-
-//log.Printf("contentType: \"%s\"\n", contentType)
-	if contentType != "" {
-		req.Header.Add("Content-Type", contentType)
-	}
-	req.Header.Add("Accept", "*/*")
 
 
 	client := &http.Client{
