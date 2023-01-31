@@ -37,7 +37,7 @@ func GetUnixmicrotimeUtc() (unixmicrotimeUtc string) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func UnixnanotimeParse(unixnanotime int64) (target Time) {
+func UnixnanotimePack(unixnanotime int64) (target Time) {
 	t := time.Unix(0, unixnanotime)
 	t = t.UTC()
 
@@ -52,7 +52,7 @@ func UnixnanotimeParse(unixnanotime int64) (target Time) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func UnixnanotimeMake(pTime *Time) (unixnanotime int64) {
+func UnixnanotimeUnpack(pTime *Time) (unixnanotime int64) {
 
 	t := time.Date(pTime.Year, time.Month(pTime.Month), pTime.Day, pTime.Hour, pTime.Minute, pTime.Second, pTime.Nanosecond, time.UTC)
 	unixnanotime = t.UnixNano()
@@ -64,7 +64,7 @@ func UnixnanotimeMake(pTime *Time) (unixnanotime int64) {
 func Unixnanotime2iso(unixnanotime int64) (iso string) {
 	var t1 Time
 
-	t1 = UnixnanotimeParse(unixnanotime)
+	t1 = UnixnanotimePack(unixnanotime)
 
 	iso = fmt.Sprintf("%04d-%02d-%02d %02d:%02d:%02d.%09d", t1.Year, t1.Month, t1.Day, t1.Hour, t1.Minute, t1.Second, t1.Nanosecond)
 
@@ -139,14 +139,14 @@ func TimeCropPerDay(source time.Time) (target time.Time) {
 func UnixnanotimeCropPerDay(unixnanotimeSource int64) (unixnanotimeTarget int64) {
 
 	var t1 Time
-	t1 = UnixnanotimeParse(unixnanotimeSource)
+	t1 = UnixnanotimePack(unixnanotimeSource)
 
 	t1.Hour       = 0
 	t1.Minute     = 0
 	t1.Second     = 0
 	t1.Nanosecond = 0
 
-	unixnanotimeTarget = UnixnanotimeMake(&t1)
+	unixnanotimeTarget = UnixnanotimeUnpack(&t1)
 
 	return
 }
@@ -154,12 +154,12 @@ func UnixnanotimeCropPerDay(unixnanotimeSource int64) (unixnanotimeTarget int64)
 func isotime_test() bool {
 	var t1 Time
 
-	t1 = UnixnanotimeParse(1624120658256315911)
+	t1 = UnixnanotimePack(1624120658256315911)
 	if (t1.Year != 2021) || (t1.Month != 06) || (t1.Day != 19) || (t1.Hour != 16) || (t1.Minute != 37) || (t1.Second != 38) || (t1.Nanosecond != 256315911) {
 		fmt.Printf("step001\n")
 	}
 
-	if UnixnanotimeMake(&t1) != 1624120658256315911 {
+	if UnixnanotimeUnpack(&t1) != 1624120658256315911 {
 		fmt.Printf("step002\n")
 		return false
 	}
