@@ -15,6 +15,7 @@ type Time struct {
 	Minute     int
 	Second     int
 	Nanosecond int
+	WeekDay    int
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func GetUnixnanotimeUtcInt64() (unixnanotimeUtc int64) {
@@ -48,6 +49,7 @@ func UnixnanotimeUnpack(unixnanotime int64) (target Time) {
 	target.Minute     = t.Minute()
 	target.Second     = t.Second()
 	target.Nanosecond = t.Nanosecond()
+	target.WeekDay    = int(t.Weekday())
 
 	return
 }
