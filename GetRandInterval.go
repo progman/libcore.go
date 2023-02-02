@@ -21,7 +21,7 @@ func GetRandInterval(min int64, max int64) (rnd int64) {
 
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
-	rnd = r1.Int63n(max - min + 1)
+	rnd = r1.Int63n(min + (max - min) + 1)
 
 	return
 }
