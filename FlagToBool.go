@@ -5,23 +5,10 @@ import (
 	"strings"
 )
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func IsFlagSet(val string) (isSet bool) {
+func FlagToBool(source string) (target bool) {
 
-
-	if strings.ToLower(val) == "true" {
-		isSet = true
-	}
-
-	if strings.ToLower(val) == "t" {
-		isSet = true
-	}
-
-	if strings.ToLower(val) == "on" {
-		isSet = true
-	}
-
-	if val == "1" {
-		isSet = true
+	if libcore.IsStringInArray([]string{"true", "t", "on", "1"}, strings.ToLower(source)) {
+		target = true
 	}
 
 
