@@ -303,6 +303,45 @@ func PostBodyStr(r *http.Request, defaultValue string) (value string) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func PostJsonValueStr(body string, key string, defaultValue string) (value string) {
+	var err error
+	var result map[string]interface{}
+
+
+	if body == "" {
+		value = defaultValue
+		return
+	}
+
+
+	err = json.Unmarshal([]byte(body), &result)
+	if err != nil {
+		value = defaultValue
+		return
+	}
+
+
+	i, ok := result[key]
+	if ok == false {
+		value = defaultValue
+		return
+	}
+	if i == nil {
+		value = defaultValue
+		return
+	}
+
+
+	if reflect.TypeOf(i).String() != "string" {
+		value = defaultValue
+		return
+	}
+	value = i.(string)
+
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func PostJsonValueStrList(body string, key string, defaultValue []string) (value []string) {
 	var err error
 	var result map[string]interface{}
