@@ -303,7 +303,7 @@ func PostBodyStr(r *http.Request, defaultValue string) (value string) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-func PostJsonValueStr(body string, key string, defaultValue string) (value string) {
+func PostJsonValueStrList(body string, key string, defaultValue []string) (value []string) {
 	var err error
 	var result map[string]interface{}
 
@@ -332,11 +332,11 @@ func PostJsonValueStr(body string, key string, defaultValue string) (value strin
 	}
 
 
-	if reflect.TypeOf(i).String() != "string" {
+	if reflect.TypeOf(i).String() != "[]string" {
 		value = defaultValue
 		return
 	}
-	value = i.(string)
+	value = i.([]string)
 
 
 	return
