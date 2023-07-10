@@ -94,7 +94,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "0"
 	currencyName = "RUB"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -107,7 +107,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "1"
 	currencyName = "RUB"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -120,7 +120,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "10"
 	currencyName = "RUB"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -133,7 +133,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "100"
 	currencyName = "RUB"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -146,7 +146,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "1000"
 	currencyName = "RUB"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -159,7 +159,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "10000"
 	currencyName = "RUB"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -172,7 +172,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "100000"
 	currencyName = "RUB"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -185,7 +185,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "0"
 	currencyName = "TND"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -198,7 +198,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "1"
 	currencyName = "TND"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -211,7 +211,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "10"
 	currencyName = "TND"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -224,7 +224,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "100"
 	currencyName = "TND"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -237,7 +237,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "1000"
 	currencyName = "TND"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -250,7 +250,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "10000"
 	currencyName = "TND"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
@@ -263,7 +263,7 @@ func FormatAmountTest() (err error) {
 
 	amount = "100000"
 	currencyName = "TND"
-	amountFormated, err = FormatAmount(amount, currencyName)
+	amountFormated, err = FormatAmount(amount, currencyName, ".")
 	if err != nil {
 		return
 	}
