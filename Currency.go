@@ -61,12 +61,6 @@ func FormatAmount(amount, currencyName, dotSign string) (amountFormated string, 
 	}
 
 
-	if len(amount) == 0 {
-		err = fmt.Errorf("amount is invalid")
-		return
-	}
-
-
 	amountFormated = amount
 	for {
 		if len(amountFormated) > currency.CountDigitAfterDot {
