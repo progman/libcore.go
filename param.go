@@ -345,6 +345,7 @@ func PostJsonValueStr(body string, key string, defaultValue string) (value strin
 func PostJsonValueStrList(body string, key string, defaultValue []string) (value []string) {
 	var err error
 	var result map[string]interface{}
+	var tmp []byte
 
 
 	if body == "" {
@@ -371,11 +372,22 @@ func PostJsonValueStrList(body string, key string, defaultValue []string) (value
 	}
 
 
-	if reflect.TypeOf(i).String() != "[]string" {
+	if reflect.TypeOf(i).String() != "[]interface {}" {
 		value = defaultValue
 		return
 	}
-	value = i.([]string)
+
+
+	tmp, err = json.Marshal(i)
+	if err != nil {
+		return
+	}
+
+
+	err = json.Unmarshal(tmp, &value)
+	if err != nil {
+		return
+	}
 
 
 	return
