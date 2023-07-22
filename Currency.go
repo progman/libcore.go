@@ -7,6 +7,7 @@ import (
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 type Currency struct {
 	Name                string
+	Symbol              string
 	CountDigitAfterDot  int
 	CountCoinOfCurrency int
 }
@@ -20,10 +21,10 @@ type Currency struct {
  */
 func GetCurrency(currencyName string) (currency Currency, err error) {
 	currencyList := []Currency {
-		Currency{ "USD", 2, 100 },
-		Currency{ "TND", 3, 1000 },
-		Currency{ "RUB", 2, 100 },
-		Currency{ "KZT", 2, 100 } }
+		Currency{ "USD", "$",  2, 100  },
+		Currency{ "TND", "DT", 3, 1000 },
+		Currency{ "RUB", "₽",  2, 100  },
+		Currency{ "KZT", "₸",  2, 100  } }
 
 
 	for i := 0; i < len(currencyList); i++ {
