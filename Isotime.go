@@ -94,7 +94,7 @@ func UnixnanotimeStrToIso(unixnanotimeStr string, offset int64, flagNanoseconds 
 // 1624120658256315 -> "2021-06-19 16:37:38.256315000"
 // Obsolete: func Unixmicrotime2iso(unixmicrotime int64) (iso string) {
 func UnixmicrotimeToIso(unixmicrotime int64, offset int64, flagNanoseconds bool) (iso string) {
-	return UnixnanotimeToIso(unixmicrotime * 1000, offset, flagNanoseconds)
+	return UnixnanotimeToIso(unixmicrotime * 1000, offset * 1000, flagNanoseconds)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // "1624120658256315" -> "2021-06-19 16:37:38.256315000"
@@ -108,13 +108,13 @@ func UnixmicrotimeStrToIso(unixmicrotimeStr string, offset int64, flagNanosecond
 		unixmicrotime = 0
 	}
 
-	return UnixnanotimeToIso(unixmicrotime * 1000, offset, flagNanoseconds)
+	return UnixmicrotimeToIso(unixmicrotime, offset, flagNanoseconds)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // 1624120658 -> "2021-06-19 16:37:38.000000000"
 // Obsolete: func Unixtime2iso(unixtime int64) (iso string) {
 func UnixtimeToIso(unixtime int64, offset int64, flagNanoseconds bool) (iso string) {
-	return UnixnanotimeToIso(unixtime * 1000000000, offset, flagNanoseconds)
+	return UnixnanotimeToIso(unixtime * 1000000000, offset * 1000000000, flagNanoseconds)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 // "1624120658" -> "2021-06-19 16:37:38.000000000"
@@ -128,7 +128,7 @@ func UnixtimeStrToIso(unixtimeStr string, offset int64, flagNanoseconds bool) (i
 		unixtime = 0
 	}
 
-	return UnixnanotimeToIso(unixtime * 1000000000, offset, flagNanoseconds)
+	return UnixtimeToIso(unixtime, offset, flagNanoseconds)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func TimeCropPerDay(source time.Time) (target time.Time) {
