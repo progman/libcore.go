@@ -12,6 +12,7 @@ package libcore
 	"1."  - ok
 	"."   - err
 	".1." - err
+	"x"   - err
 */
 func IsFloat(str string) (flagOk bool) {
 	strSize := len(str)
