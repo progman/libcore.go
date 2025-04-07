@@ -7,14 +7,14 @@ package libcore
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 /*
 	""    - false
-	"1"   - true
+	"1"   - true (for flagNeedDot == false) or false (for flagNeedDot == true)
 	".1"  - true
 	"1."  - true
 	"."   - false
 	".1." - false
 	"x"   - false
 */
-func IsFloat(str string) (flagOk bool) {
+func IsFloat(str string, flagNeedDot bool) (flagOk bool) {
 	strSize := len(str)
 
 	if strSize == 0 {
@@ -48,6 +48,12 @@ func IsFloat(str string) (flagOk bool) {
 
 	if flagDig == false {
 //		err = errors.New("str has not dig char")
+		return
+	}
+
+
+	if (flagNeedDot == true) && (flagDot == false) {
+//		err = errors.New("str has not dot char")
 		return
 	}
 
