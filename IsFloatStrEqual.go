@@ -16,19 +16,19 @@ import (
 func IsFloatStrEqual(floatStr1 string, floatStr2 string) (flagEqual bool, err error) {
 
 // are args float?
-	var flagFloat1 bool = libcore.IsFloat(floatStr1, true)
-	var flagFloat2 bool = libcore.IsFloat(floatStr2, true)
+	var flagFloat1 bool = IsFloat(floatStr1, true)
+	var flagFloat2 bool = IsFloat(floatStr2, true)
 
 
 // args float or integer
 	if flagFloat1 == false {
-		if libcore.IsUint(floatStr1) == false {
+		if IsUint(floatStr1) == false {
 			err = fmt.Errorf("floatStr is invalid")
 			return
 		}
 	}
 	if flagFloat2 == false {
-		if libcore.IsUint(floatStr2) == false {
+		if IsUint(floatStr2) == false {
 			err = fmt.Errorf("floatStr is invalid")
 			return
 		}
