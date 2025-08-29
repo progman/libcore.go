@@ -6,12 +6,14 @@ import (
 )
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 /*
-	1      err
-	1 2    false
-	1 1    true
-	1 1.   true
-	1 1.0  true
-	1 1.00 true
+	 1      err
+	 1 2    false
+	 1 1    true
+	 1 1.   true
+	 1 1.0  true
+	 1 1.00 true
+	.1 0.1  true
+	.1 0.10 true
 */
 func IsFloatStrEqual(floatStr1 string, floatStr2 string) (flagEqual bool, err error) {
 
@@ -51,6 +53,15 @@ func IsFloatStrEqual(floatStr1 string, floatStr2 string) (flagEqual bool, err er
 	}
 	if flagFloat2 == false {
 		floatStr2 += "."
+	}
+
+
+// convert ".1" to "0.1" if need
+	if rune(floatStr1[0]) == rune(byte('.')) {
+		floatStr1 = "0" + floatStr1
+	}
+	if rune(floatStr2[0]) == rune(byte('.')) {
+		floatStr2 = "0" + floatStr2
 	}
 
 
