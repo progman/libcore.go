@@ -112,9 +112,46 @@ func TestIsFloatStrEqual(t *testing.T) {
 	}
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func TestUintToFloatStr(t *testing.T) {
+	var err error
+	var target string
+	var expect string
+
+
+	expect = "666.797225"
+	target, err = UintToFloatStr("666797225", "6")
+	if err != nil {
+		t.Errorf("UintToFloatStr() = %v, want %v", err, nil)
+	}
+	if target != expect {
+		t.Errorf("UintToFloatStr() = %s, want %s", target, expect)
+	}
+
+
+	expect = "255.528067780000000000"
+	target, err = UintToFloatStr("255528067780000000000", "18")
+	if err != nil {
+		t.Errorf("UintToFloatStr() = %v, want %v", err, nil)
+	}
+	if target != expect {
+		t.Errorf("UintToFloatStr() = %s, want %s", target, expect)
+	}
+
+
+	expect = "0.000"
+	target, err = UintToFloatStr("0", "3")
+	if err != nil {
+		t.Errorf("UintToFloatStr() = %v, want %v", err, nil)
+	}
+	if target != expect {
+		t.Errorf("UintToFloatStr() = %s, want %s", target, expect)
+	}
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func TestHello(t *testing.T) {
 	TestPing(t)
 	TestPong(t)
 	TestIsFloatStrEqual(t)
+	TestUintToFloatStr(t)
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//

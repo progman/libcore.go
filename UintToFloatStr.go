@@ -8,7 +8,7 @@ import (
 /*
 "666797225", "6" -> "666.797225"
 "255528067780000000000", "18" -> "255.528067780000000000"
-"0", "3" -> ".000"
+"0", "3" -> "0.000"
 */
 func UintToFloatStr(source string, decimalSize string) (target string, err error) {
 
@@ -39,6 +39,12 @@ func UintToFloatStr(source string, decimalSize string) (target string, err error
 
 
 	target = part1 + "." + part2
+
+
+// convert ".x" to "0.x" if need
+	if rune(target[0]) == rune(byte('.')) {
+		target = "0" + target
+	}
 
 
 	return

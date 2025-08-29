@@ -56,7 +56,7 @@ func IsFloatStrEqual(floatStr1 string, floatStr2 string) (flagEqual bool, err er
 	}
 
 
-// convert ".1" to "0.1" if need
+// convert ".x" to "0.x" if need
 	if rune(floatStr1[0]) == rune(byte('.')) {
 		floatStr1 = "0" + floatStr1
 	}
