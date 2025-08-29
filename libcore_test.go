@@ -110,6 +110,24 @@ func TestIsFloatStrEqual(t *testing.T) {
 	if flagEqual != true {
 		t.Errorf("IsFloatStrEqual() = %t, want %t", flagEqual, true)
 	}
+
+
+	flagEqual, err = IsFloatStrEqual("0", ".0")
+	if err != nil {
+		t.Errorf("IsFloatStrEqual() = %v, want %v", err, nil)
+	}
+	if flagEqual != true {
+		t.Errorf("IsFloatStrEqual() = %t, want %t", flagEqual, true)
+	}
+
+
+	flagEqual, err = IsFloatStrEqual("0", ".00")
+	if err != nil {
+		t.Errorf("IsFloatStrEqual() = %v, want %v", err, nil)
+	}
+	if flagEqual != true {
+		t.Errorf("IsFloatStrEqual() = %t, want %t", flagEqual, true)
+	}
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func TestUintToFloatStr(t *testing.T) {
