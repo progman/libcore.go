@@ -9,13 +9,13 @@ func DiffTwoStringArray(from []string, to []string) (add []string, del []string)
 	var value string
 
 	for _, value = range from {
-		if libcore.IsStringInArray(to, value) == false {
+		if IsStringInArray(to, value) == false {
 			del = append(del, value)
 		}
 	}
 
 	for _, value = range to {
-		if libcore.IsStringInArray(from, value) == false {
+		if IsStringInArray(from, value) == false {
 			add = append(add, value)
 		}
 	}
