@@ -17,6 +17,7 @@ func TestHello(t *testing.T) {
 // GetRandСhance.go
 // Hex.go
 // Hex2Bin.go
+	Hex2Bin_test(t)
 // HttpDelete.go
 // HttpGet.go
 // HttpPost.go
