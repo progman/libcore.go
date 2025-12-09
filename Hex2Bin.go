@@ -5,6 +5,7 @@ import (
 	"testing"
 	"fmt"
 	"encoding/hex"
+	"slices"
 )
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 func Hex2Bin(src string) (dst []byte, err error) {
@@ -29,7 +30,7 @@ func Hex2Bin_test(t *testing.T) {
 	if err != nil {
 		t.Errorf("Hex2Bin() return error %v", err)
 	}
-	if got != want {
+	if slices.Equal(got,want) == false {
 		t.Errorf("Hex2Bin() = %q, want %q", got, want)
 	}
 
