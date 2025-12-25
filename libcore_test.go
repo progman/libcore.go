@@ -8,50 +8,53 @@ import (
 func TestHello(t *testing.T) {
 	Bin2Hex_test(t)
 	BoolToFlag_test(t)
-// Currency.go
+//CorsFasthttp.go
+//CorsHttp.go
+//Currency.go
+//DiffTwoStringArray.go
 	FlagToBool_test(t)
-// FloatToStr.go
-// GetRandHex.go
-// GetRandRange.go
-// GetRandUUID.go
-// GetRandСhance.go
-// Hex.go
-// Hex2Bin.go
+//FloatToStr.go
+//GetRandHex.go
+//GetRandRange.go
+//GetRandUUID.go
+//GetRandСhance.go
 	Hex2Bin_test(t)
-// HttpDelete.go
-// HttpGet.go
-// HttpPost.go
-// HttpPut.go
-// IsDockerContainer.go
-// IsFloat.go
+//Hex.go
+//HttpDelete.go
+//HttpGet.go
+//HttpPost.go
+//HttpPut.go
+//IsDockerContainer.go
+//IsFloat.go
 	IsFloatStrEqual_test(t)
-// IsInt64InArray.go
-// IsIsoDatetime.go
-// IsParity.go
-// IsSint.go
-// IsStringInArray.go
-// IsUint.go
-// IsUint64InArray.go
-// Isotime.go
-// Luhn.go
-// SintToStr.go
-// StrExpandLeft.go
-// StrExpandRight.go
-// StrToFloat.go
-// StrToSint.go
-// StrToUint.go
-// StringArrayToString.go
-	UintToFloatStr_test(t)
-// UintToStr.go
-// Uniq.go
-// UrlAddParam.go
-// UrlAddSlash.go
-// libcore_test.go
-// other.go
-// param.go
+//IsInt64InArray.go
+//IsIsoDatetime.go
+//Isotime.go
+//IsParity.go
+//IsSint.go
+//IsStringInArray.go
+//IsUint64InArray.go
+//IsUint.go
+//libcore_test.go
+//Luhn.go
+//other.go
+//param.go
 	Ping_test(t)
 	Pong_test(t)
-// result.go
-// usetest.go
+//result.go
+//SintToStr.go
+//StrExpandLeft.go
+//StrExpandRight.go
+//StringArrayToString.go
+//StrToFloat.go
+//StrToSint.go
+//StrToUint.go
+//typeResult.go
+	UintToFloatStr_test(t)
+//UintToStr.go
+//Uniq.go
+//UrlAddParam.go
+//UrlAddSlash.go
+//usetest.go
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
