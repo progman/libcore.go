@@ -18,6 +18,7 @@ import (
  * @param  timeout timeout like 30 * time.Second
  * @return httpCode http status code
  * @return dataOut received data
+ * @return cookieList received cookie list
  * @return err error
  */
 func HttpGet(url string, pHeaderMap *map[string]string, timeout time.Duration) (httpCode int, dataOut []byte, cookieList []*http.Cookie, err error) {

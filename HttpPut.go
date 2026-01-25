@@ -19,6 +19,7 @@ import (
  * @param  dataIn data for send
  * @return httpCode http status code
  * @return dataOut received data
+ * @return cookieList received cookie list
  * @return err error
  */
 func HttpPut(url string, pHeaderMap *map[string]string, timeout time.Duration, dataIn []byte) (httpCode int, dataOut []byte, cookieList []*http.Cookie, err error) {
