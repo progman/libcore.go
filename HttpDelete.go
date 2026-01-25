@@ -12,6 +12,7 @@ import (
 /**
  * @author Alexey Potehin <gnuplanet@gmail.com>, http://www.gnuplanet.online/doc/cv
  * @brief  send DELETE request to url
+ * @param  pTransport nil or transport
  * @param  url URL
  * @param  pHeaderMap header map, map[string]string{"Content-Type": "application/json", "Authorization": "Bearer xxx"}
  * @param  timeout timeout like 30 * time.Second
@@ -20,7 +21,7 @@ import (
  * @return cookieList received cookie list
  * @return err error
  */
-func HttpDelete(url string, pHeaderMap *map[string]string, timeout time.Duration) (httpCode int, dataOut []byte, cookieList []*http.Cookie, err error) {
+func HttpDelete(pTransport *http.Transport, url string, pHeaderMap *map[string]string, timeout time.Duration) (httpCode int, dataOut []byte, cookieList []*http.Cookie, err error) {
 	var req *http.Request
 //	log.Printf("DELETE URL: %s\n", url)
 
@@ -42,6 +43,14 @@ func HttpDelete(url string, pHeaderMap *map[string]string, timeout time.Duration
 	client := &http.Client{
 		Timeout: timeout,
 	}
+	if pTransport != nil {
+		client = &http.Client{
+			Timeout: timeout,
+			Transport: pTransport,
+		}
+	}
+
+
 	res, err := client.Do(req)
 	if err != nil {
 		return
