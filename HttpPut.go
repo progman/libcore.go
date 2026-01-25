@@ -21,20 +21,23 @@ import (
  * @return dataOut received data
  * @return err error
  */
-func HttpPut(url string, pHeaderMap *map[string]string, timeout time.Duration, dataIn []byte) (httpCode int, dataOut []byte, err error) {
+func HttpPut(url string, pHeaderMap *map[string]string, timeout time.Duration, dataIn []byte) (httpCode int, dataOut []byte, cookieList []*http.Cookie, err error) {
+	var req *http.Request
 //	log.Printf("PUT URL: %s\n", url)
 //	log.Printf("PUT BODY: %s\n", string(dataIn))
 
 
 	r := bytes.NewReader(dataIn)
-	req, err := http.NewRequest(http.MethodPut, url, r)
+	req, err = http.NewRequest(http.MethodPut, url, r)
 	if err != nil {
 		return
 	}
 
 
-	for headerKey, headerValue := range *pHeaderMap {
-		req.Header.Add(headerKey, headerValue)
+	if pHeaderMap != nil {
+		for headerKey, headerValue := range *pHeaderMap {
+			req.Header.Add(headerKey, headerValue)
+		}
 	}
 
 
@@ -46,6 +49,9 @@ func HttpPut(url string, pHeaderMap *map[string]string, timeout time.Duration, d
 		return
 	}
 	defer res.Body.Close()
+
+
+	cookieList = res.Cookies()
 
 
 	dataOut, err = ioutil.ReadAll(res.Body)

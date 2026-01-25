@@ -20,19 +20,22 @@ import (
  * @return dataOut received data
  * @return err error
  */
-func HttpGet(url string, pHeaderMap *map[string]string, timeout time.Duration) (httpCode int, dataOut []byte, err error) {
+func HttpGet(url string, pHeaderMap *map[string]string, timeout time.Duration) (httpCode int, dataOut []byte, cookieList []*http.Cookie, err error) {
+	var req *http.Request
 //	log.Printf("GET URL: %s\n", url)
 
 
 	r := bytes.NewReader([]byte{})
-	req, err := http.NewRequest(http.MethodGet, url, r)
+	req, err = http.NewRequest(http.MethodGet, url, r)
 	if err != nil {
 		return
 	}
 
 
-	for headerKey, headerValue := range *pHeaderMap {
-		req.Header.Add(headerKey, headerValue)
+	if pHeaderMap != nil {
+		for headerKey, headerValue := range *pHeaderMap {
+			req.Header.Add(headerKey, headerValue)
+		}
 	}
 
 
@@ -44,6 +47,9 @@ func HttpGet(url string, pHeaderMap *map[string]string, timeout time.Duration) (
 		return
 	}
 	defer res.Body.Close()
+
+
+	cookieList = res.Cookies()
 
 
 	dataOut, err = ioutil.ReadAll(res.Body)
