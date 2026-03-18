@@ -132,6 +132,36 @@ func (p *CrossSet) Inc() (flagDone bool) {
 	return
 }
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+func (p *CrossSet) Percent() (percent int) {
+
+	var all int
+	if len(p.SuperSet) > 0 {
+		all = len(p.SuperSet[0])
+		for i := 1; i < len(p.SuperSet); i++ {
+			all *= len(p.SuperSet[i])
+		}
+	}
+
+
+	var cur int = 1
+	for i := 0; i < len(p.SuperSet); i++ {
+		var tmp = p.IndexList[i]
+		for j := i + 1; j < len(p.SuperSet); j++ {
+			tmp *= len(p.SuperSet[j])
+		}
+		cur += tmp
+	}
+
+
+	var div float64 = float64(all)/float64(100)
+	if div > 0 {
+		percent = int(float64(cur) / float64(div))
+	}
+
+
+	return
+}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 /*
 func test1() {
 	var set []string = []string{ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" }
@@ -143,10 +173,11 @@ func test1() {
 
 
 	for {
-
 		fmt.Printf("%v\n", crossSet.Value())
 		fmt.Printf("%s\n", crossSet.ValueString())
 		fmt.Printf("%s\n", crossSet.String())
+		fmt.Printf("%d%%\n", crossSet.Percent())
+
 
 		if crossSet.Inc() == true {
 			break
@@ -168,10 +199,11 @@ func test2() {
 
 
 	for {
-
 		fmt.Printf("%v\n", crossSet.Value())
 		fmt.Printf("%s\n", crossSet.ValueString())
 		fmt.Printf("%s\n", crossSet.String())
+		fmt.Printf("%d%%\n", crossSet.Percent())
+
 
 		if crossSet.Inc() == true {
 			break
@@ -192,10 +224,11 @@ func test3() {
 
 
 	for {
-
 		fmt.Printf("%v\n", crossSet.Value())
 		fmt.Printf("%s\n", crossSet.ValueString())
 		fmt.Printf("%s\n", crossSet.String())
+		fmt.Printf("%d%%\n", crossSet.Percent())
+
 
 		if crossSet.Inc() == true {
 			break
